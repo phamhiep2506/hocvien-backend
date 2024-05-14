@@ -8,4 +8,8 @@ public interface ILoaiKhoaHocService
     public Responses CreateLoaiKhoaHoc(
         CreateLoaiKhoaHocDto createLoaiKhoaHocDto
     );
+
+    public Responses UpdateLoaiKhoaHoc(
+        UpdateLoaiKhoaHocDto updateLoaiKhoaHocDto
+    );
 }

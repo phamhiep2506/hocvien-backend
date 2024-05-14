@@ -1,5 +1,6 @@
 using AutoMapper;
 using Dtos.LoaiKhoaHoc;
+using Microsoft.EntityFrameworkCore;
 using Models;
 using Payloads;
 using Services.IServices;
@@ -44,6 +45,36 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
         return new Responses().StatusMessages(
             201,
             "Loại khóa học được thêm thành công"
+        );
+    }
+
+    public Responses UpdateLoaiKhoaHoc(
+        UpdateLoaiKhoaHocDto updateLoaiKhoaHocDto
+    )
+    {
+        LoaiKhoaHoc? loaiKhoaHoc = _context
+            .LoaiKhoaHoc?.AsNoTracking()
+            .Where(x => x.LoaiKhoaHocId == updateLoaiKhoaHocDto.LoaiKhoaHocId)
+            .SingleOrDefault();
+
+        if (loaiKhoaHoc == null)
+        {
+            return new Responses().StatusMessages(
+                202,
+                "Loại khóa học không tồn tại"
+            );
+        }
+
+        loaiKhoaHoc = _mapper.Map<UpdateLoaiKhoaHocDto, LoaiKhoaHoc>(
+            updateLoaiKhoaHocDto
+        );
+
+        _context.Update(loaiKhoaHoc);
+        _context.SaveChanges();
+
+        return new Responses().StatusMessages(
+            200,
+            "Sửa loại khóa học thành công"
         );
     }
 }

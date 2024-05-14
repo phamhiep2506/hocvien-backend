@@ -42,4 +42,21 @@ public class LoaiKhoaHocController : ControllerBase
             )
         );
     }
+
+    [HttpPatch]
+    public IActionResult UpdateLoaiKhoaHoc(
+        UpdateLoaiKhoaHocDto updateLoaiKhoaHocDto
+    )
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
+
+        return Ok(
+            new LoaiKhoaHocService(_mapper, _context).UpdateLoaiKhoaHoc(
+                updateLoaiKhoaHocDto
+            )
+        );
+    }
 }

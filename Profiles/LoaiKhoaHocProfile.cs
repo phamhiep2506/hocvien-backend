@@ -9,5 +9,6 @@ public class LoaiKhoaHocProfile : Profile
     public LoaiKhoaHocProfile()
     {
         CreateMap<CreateLoaiKhoaHocDto, LoaiKhoaHoc>();
+        CreateMap<UpdateLoaiKhoaHocDto, LoaiKhoaHoc>();
     }
 }
