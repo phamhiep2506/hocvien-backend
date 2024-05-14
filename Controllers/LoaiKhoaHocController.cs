@@ -59,4 +59,21 @@ public class LoaiKhoaHocController : ControllerBase
             )
         );
     }
+
+    [HttpDelete]
+    public IActionResult DeleteLoaiKhoaHoc(
+        DeleteLoaiKhoaHocDto deleteLoaiKhoaHocDto
+    )
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
+
+        return Ok(
+            new LoaiKhoaHocService(_mapper, _context).DeleteLoaiKhoaHoc(
+                deleteLoaiKhoaHocDto
+            )
+        );
+    }
 }

@@ -77,4 +77,30 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
             "Sửa loại khóa học thành công"
         );
     }
+
+    public Responses DeleteLoaiKhoaHoc(
+        DeleteLoaiKhoaHocDto deleteLoaiKhoaHocDto
+    )
+    {
+        LoaiKhoaHoc? loaiKhoaHoc = _context
+            .LoaiKhoaHoc?.AsNoTracking()
+            .Where(x => x.LoaiKhoaHocId == deleteLoaiKhoaHocDto.LoaiKhoaHocId)
+            .SingleOrDefault();
+
+        if (loaiKhoaHoc == null)
+        {
+            return new Responses().StatusMessages(
+                202,
+                "Loại khóa học không tồn tại"
+            );
+        }
+
+        _context.Remove(loaiKhoaHoc);
+        _context.SaveChanges();
+
+        return new Responses().StatusMessages(
+            200,
+            "Xóa loại khóa học thành công"
+        );
+    }
 }

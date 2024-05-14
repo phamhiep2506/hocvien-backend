@@ -12,4 +12,8 @@ public interface ILoaiKhoaHocService
     public Responses UpdateLoaiKhoaHoc(
         UpdateLoaiKhoaHocDto updateLoaiKhoaHocDto
     );
+
+    public Responses DeleteLoaiKhoaHoc(
+        DeleteLoaiKhoaHocDto deleteLoaiKhoaHocDto
+    );
 }
