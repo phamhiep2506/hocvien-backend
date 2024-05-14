@@ -12,6 +12,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddControllers();
 
+builder.Services.AddAutoMapper(typeof(Program));
+
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
