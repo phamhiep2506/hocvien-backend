@@ -152,4 +152,30 @@ public class KhoaHocService : IKhoaHocService
             getKhoaHocDtos
         );
     }
+
+    public IResponses SearchKhoaHocByName(SearchKhoaHocDto searchKhoaHocDto)
+    {
+        List<KhoaHoc>? khoaHoc = _context
+            .KhoaHoc?.Where(x => x.TenKhoaHoc == searchKhoaHocDto.TenKhoaHoc)
+            .ToList();
+
+        if (khoaHoc == null)
+        {
+            return _responses.StatusMessages(
+                StatusCodes.Status202Accepted,
+                ResponsesMessages.DataNull
+            );
+        }
+
+        List<GetKhoaHocDto> getKhoaHocDtos = _mapper.Map<
+            List<KhoaHoc>,
+            List<GetKhoaHocDto>
+        >(khoaHoc);
+
+        return _responses.StatusMessagesData(
+            StatusCodes.Status200OK,
+            ResponsesMessages.GetDataSuccess,
+            getKhoaHocDtos
+        );
+    }
 }

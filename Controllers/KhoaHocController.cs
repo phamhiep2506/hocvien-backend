@@ -66,4 +66,16 @@ public class KhoaHocController : ControllerBase
     {
         return Ok(_service.GetKhoaHoc());
     }
+
+    [HttpGet]
+    [Route("search")]
+    public IActionResult SearchKhoaHocByName(SearchKhoaHocDto searchKhoaHocDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
+
+        return Ok(_service.SearchKhoaHocByName(searchKhoaHocDto));
+    }
 }

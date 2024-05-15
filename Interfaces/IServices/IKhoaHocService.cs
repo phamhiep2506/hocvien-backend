@@ -11,4 +11,6 @@ public interface IKhoaHocService
     public IResponses DeleteKhoaHoc(DeleteKhoaHocDto deleteKhoaHocDto);
 
     public IResponses GetKhoaHoc();
+
+    public IResponses SearchKhoaHocByName(SearchKhoaHocDto searchKhoaHocDto);
 }
