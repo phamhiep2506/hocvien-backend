@@ -36,7 +36,7 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
         )
         {
             return _responses.StatusMessages(
-                StatusCodes.Status202Accepted,
+                ResponsesStatus.Error,
                 ResponsesMessages.DataExisted
             );
         }
@@ -54,13 +54,13 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
         catch
         {
             return _responses.StatusMessages(
-                StatusCodes.Status202Accepted,
+                ResponsesStatus.Error,
                 ResponsesMessages.CreateDataFailed
             );
         }
 
         return _responses.StatusMessages(
-            StatusCodes.Status201Created,
+            ResponsesStatus.Success,
             ResponsesMessages.CreateDataSuccess
         );
     }
@@ -77,7 +77,7 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
         if (loaiKhoaHoc == null)
         {
             return _responses.StatusMessages(
-                StatusCodes.Status202Accepted,
+                ResponsesStatus.Error,
                 ResponsesMessages.DataNotExist
             );
         }
@@ -92,13 +92,13 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
         catch
         {
             return _responses.StatusMessages(
-                StatusCodes.Status202Accepted,
+                ResponsesStatus.Error,
                 ResponsesMessages.UpdateDataFailed
             );
         }
 
         return _responses.StatusMessages(
-            StatusCodes.Status200OK,
+            ResponsesStatus.Success,
             ResponsesMessages.UpdateDataSuccess
         );
     }
@@ -115,7 +115,7 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
         if (loaiKhoaHoc == null)
         {
             return _responses.StatusMessages(
-                StatusCodes.Status202Accepted,
+                ResponsesStatus.Error,
                 ResponsesMessages.DataNotExist
             );
         }
@@ -128,25 +128,25 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
         catch
         {
             return _responses.StatusMessages(
-                StatusCodes.Status202Accepted,
+                ResponsesStatus.Error,
                 ResponsesMessages.DeleteDataFailed
             );
         }
 
         return _responses.StatusMessages(
-            StatusCodes.Status200OK,
+            ResponsesStatus.Success,
             ResponsesMessages.DeleteDataSuccess
         );
     }
 
     public IResponses GetLoaiKhoaHoc()
     {
-        List<LoaiKhoaHoc>? loaiKhoaHocs = _context.LoaiKhoaHoc?.ToList();
+        List<LoaiKhoaHoc> loaiKhoaHocs = _context.LoaiKhoaHoc!.ToList();
 
-        if (loaiKhoaHocs == null)
+        if (loaiKhoaHocs.Count == 0)
         {
             return _responses.StatusMessages(
-                StatusCodes.Status202Accepted,
+                ResponsesStatus.Error,
                 ResponsesMessages.DataNull
             );
         }
@@ -157,7 +157,7 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
         >(loaiKhoaHocs);
 
         return _responses.StatusMessagesData(
-            StatusCodes.Status200OK,
+            ResponsesStatus.Success,
             ResponsesMessages.GetDataSuccess,
             getLoaiKhoaHocDtos
         );

@@ -33,7 +33,7 @@ public class KhoaHocService : IKhoaHocService
         )
         {
             return _responses.StatusMessages(
-                StatusCodes.Status202Accepted,
+                ResponsesStatus.Error,
                 ResponsesMessages.DataExisted
             );
         }
@@ -50,13 +50,13 @@ public class KhoaHocService : IKhoaHocService
         catch
         {
             return _responses.StatusMessages(
-                StatusCodes.Status202Accepted,
+                ResponsesStatus.Error,
                 ResponsesMessages.CreateDataFailed
             );
         }
 
         return _responses.StatusMessages(
-            StatusCodes.Status201Created,
+            ResponsesStatus.Success,
             ResponsesMessages.CreateDataSuccess
         );
     }
@@ -70,7 +70,7 @@ public class KhoaHocService : IKhoaHocService
         if (khoaHoc == null)
         {
             return _responses.StatusMessages(
-                StatusCodes.Status202Accepted,
+                ResponsesStatus.Error,
                 ResponsesMessages.DataNotExist
             );
         }
@@ -85,13 +85,13 @@ public class KhoaHocService : IKhoaHocService
         catch
         {
             return _responses.StatusMessages(
-                StatusCodes.Status202Accepted,
+                ResponsesStatus.Error,
                 ResponsesMessages.UpdateDataFailed
             );
         }
 
         return _responses.StatusMessages(
-            StatusCodes.Status200OK,
+            ResponsesStatus.Success,
             ResponsesMessages.UpdateDataSuccess
         );
     }
@@ -105,7 +105,7 @@ public class KhoaHocService : IKhoaHocService
         if (khoaHoc == null)
         {
             return _responses.StatusMessages(
-                StatusCodes.Status202Accepted,
+                ResponsesStatus.Error,
                 ResponsesMessages.DataNotExist
             );
         }
@@ -118,25 +118,25 @@ public class KhoaHocService : IKhoaHocService
         catch
         {
             return _responses.StatusMessages(
-                StatusCodes.Status202Accepted,
+                ResponsesStatus.Error,
                 ResponsesMessages.DeleteDataFailed
             );
         }
 
         return _responses.StatusMessages(
-            StatusCodes.Status200OK,
+            ResponsesStatus.Success,
             ResponsesMessages.DeleteDataSuccess
         );
     }
 
     public IResponses GetKhoaHoc()
     {
-        List<KhoaHoc>? khoaHoc = _context.KhoaHoc?.ToList();
+        List<KhoaHoc> khoaHoc = _context.KhoaHoc!.ToList();
 
-        if (khoaHoc == null)
+        if (khoaHoc.Count == 0)
         {
             return _responses.StatusMessages(
-                StatusCodes.Status202Accepted,
+                ResponsesStatus.Error,
                 ResponsesMessages.DataNull
             );
         }
@@ -147,22 +147,22 @@ public class KhoaHocService : IKhoaHocService
         >(khoaHoc);
 
         return _responses.StatusMessagesData(
-            StatusCodes.Status200OK,
+            ResponsesStatus.Success,
             ResponsesMessages.GetDataSuccess,
             getKhoaHocDtos
         );
     }
 
-    public IResponses SearchKhoaHocByName(SearchKhoaHocDto searchKhoaHocDto)
+    public IResponses SearchKhoaHocByName(string tenKhoaHoc)
     {
-        List<KhoaHoc>? khoaHoc = _context
-            .KhoaHoc?.Where(x => x.TenKhoaHoc == searchKhoaHocDto.TenKhoaHoc)
+        List<KhoaHoc> khoaHoc = _context
+            .KhoaHoc!.Where(x => x.TenKhoaHoc == tenKhoaHoc)
             .ToList();
 
-        if (khoaHoc == null)
+        if (khoaHoc.Count == 0)
         {
             return _responses.StatusMessages(
-                StatusCodes.Status202Accepted,
+                ResponsesStatus.Error,
                 ResponsesMessages.DataNull
             );
         }
@@ -173,7 +173,7 @@ public class KhoaHocService : IKhoaHocService
         >(khoaHoc);
 
         return _responses.StatusMessagesData(
-            StatusCodes.Status200OK,
+            ResponsesStatus.Success,
             ResponsesMessages.GetDataSuccess,
             getKhoaHocDtos
         );

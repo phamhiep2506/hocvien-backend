@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Dtos.KhoaHoc;
 using Interfaces.IServices;
 using Microsoft.AspNetCore.Mvc;
@@ -56,13 +57,16 @@ public class KhoaHocController : ControllerBase
 
     [HttpGet]
     [Route("search")]
-    public IActionResult SearchKhoaHocByName(SearchKhoaHocDto searchKhoaHocDto)
+    public IActionResult SearchKhoaHocByName(
+        [MaxLength(50, ErrorMessage = "Tên khóa học không được quá 50 ký tự")]
+            string tenKhoaHoc
+    )
     {
         if (!ModelState.IsValid)
         {
             return BadRequest();
         }
 
-        return Ok(_service.SearchKhoaHocByName(searchKhoaHocDto));
+        return Ok(_service.SearchKhoaHocByName(tenKhoaHoc));
     }
 }
