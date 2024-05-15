@@ -1,5 +1,5 @@
 using AutoMapper;
-using Dtos;
+using Dtos.KhoaHoc;
 using Models;
 
 namespace Profiles;
@@ -13,5 +13,6 @@ public class KhoaHocProfile : Profile
             .ForAllMembers(opts =>
                 opts.Condition((src, dest, srcMember) => srcMember != null)
             );
+        CreateMap<KhoaHoc, GetKhoaHocDto>();
     }
 }

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Dtos;
+namespace Dtos.KhoaHoc;
 
 public class UpdateKhoaHocDto
 {

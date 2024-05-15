@@ -1,5 +1,5 @@
 using AutoMapper;
-using Dtos;
+using Dtos.KhoaHoc;
 using Interfaces.IServices;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -48,5 +48,22 @@ public class KhoaHocController : ControllerBase
         }
 
         return Ok(_service.UpdateKhoaHoc(updateKhoaHocDto));
+    }
+
+    [HttpDelete]
+    public IActionResult DeleteKhoaHoc(DeleteKhoaHocDto deleteKhoaHocDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
+
+        return Ok(_service.DeleteKhoaHoc(deleteKhoaHocDto));
+    }
+
+    [HttpGet]
+    public IActionResult GetKhoaHoc()
+    {
+        return Ok(_service.GetKhoaHoc());
     }
 }

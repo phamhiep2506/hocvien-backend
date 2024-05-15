@@ -1,5 +1,5 @@
 using AutoMapper;
-using Dtos;
+using Dtos.KhoaHoc;
 using Interfaces.IPayloads;
 using Interfaces.IServices;
 using Models;
@@ -93,6 +93,63 @@ public class KhoaHocService : IKhoaHocService
         return _responses.StatusMessages(
             StatusCodes.Status200OK,
             ResponsesMessages.UpdateDataSuccess
+        );
+    }
+
+    public IResponses DeleteKhoaHoc(DeleteKhoaHocDto deleteKhoaHocDto)
+    {
+        KhoaHoc? khoaHoc = _context
+            .KhoaHoc?.Where(x => x.KhoaHocId == deleteKhoaHocDto.KhoaHocId)
+            .SingleOrDefault();
+
+        if (khoaHoc == null)
+        {
+            return _responses.StatusMessages(
+                StatusCodes.Status202Accepted,
+                ResponsesMessages.DataNotExist
+            );
+        }
+
+        try
+        {
+            _context.Remove(khoaHoc);
+            _context.SaveChanges();
+        }
+        catch
+        {
+            return _responses.StatusMessages(
+                StatusCodes.Status202Accepted,
+                ResponsesMessages.DeleteDataFailed
+            );
+        }
+
+        return _responses.StatusMessages(
+            StatusCodes.Status200OK,
+            ResponsesMessages.DeleteDataSuccess
+        );
+    }
+
+    public IResponses GetKhoaHoc()
+    {
+        List<KhoaHoc>? khoaHoc = _context.KhoaHoc?.ToList();
+
+        if (khoaHoc == null)
+        {
+            return _responses.StatusMessages(
+                StatusCodes.Status202Accepted,
+                ResponsesMessages.DataNull
+            );
+        }
+
+        List<GetKhoaHocDto> getKhoaHocDtos = _mapper.Map<
+            List<KhoaHoc>,
+            List<GetKhoaHocDto>
+        >(khoaHoc);
+
+        return _responses.StatusMessagesData(
+            StatusCodes.Status200OK,
+            ResponsesMessages.GetDataSuccess,
+            getKhoaHocDtos
         );
     }
 }
