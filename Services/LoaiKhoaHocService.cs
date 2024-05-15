@@ -82,10 +82,7 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
             );
         }
 
-        _mapper.Map<UpdateLoaiKhoaHocDto, LoaiKhoaHoc>(
-            updateLoaiKhoaHocDto,
-            loaiKhoaHoc
-        );
+        _mapper.Map(updateLoaiKhoaHocDto, loaiKhoaHoc);
 
         try
         {

@@ -75,7 +75,7 @@ public class KhoaHocService : IKhoaHocService
             );
         }
 
-        _mapper.Map<UpdateKhoaHocDto, KhoaHoc>(updateKhoaHocDto, khoaHoc);
+        _mapper.Map(updateKhoaHocDto, khoaHoc);
 
         try
         {

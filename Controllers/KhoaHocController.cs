@@ -1,8 +1,6 @@
-using AutoMapper;
 using Dtos.KhoaHoc;
 using Interfaces.IServices;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 
 namespace Controllers;
 
@@ -10,21 +8,10 @@ namespace Controllers;
 [Route("api/[controller]")]
 public class KhoaHocController : ControllerBase
 {
-    private readonly IMapper _mapper;
-    private readonly ILogger<KhoaHocController> _logger;
-    private readonly ApplicationDbContext _context;
     private readonly IKhoaHocService _service;
 
-    public KhoaHocController(
-        IMapper mapper,
-        ILogger<KhoaHocController> logger,
-        ApplicationDbContext context,
-        IKhoaHocService service
-    )
+    public KhoaHocController(IKhoaHocService service)
     {
-        _mapper = mapper;
-        _logger = logger;
-        _context = context;
         _service = service;
     }
 
