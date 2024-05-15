@@ -1,19 +1,19 @@
 using Dtos.LoaiKhoaHoc;
-using Payloads;
+using Interfaces.IPayloads;
 
-namespace Services.IServices;
+namespace Interfaces.IServices;
 
 public interface ILoaiKhoaHocService
 {
-    public Responses CreateLoaiKhoaHoc(
+    public IResponses CreateLoaiKhoaHoc(
         CreateLoaiKhoaHocDto createLoaiKhoaHocDto
     );
 
-    public Responses UpdateLoaiKhoaHoc(
+    public IResponses UpdateLoaiKhoaHoc(
         UpdateLoaiKhoaHocDto updateLoaiKhoaHocDto
     );
 
-    public Responses DeleteLoaiKhoaHoc(
+    public IResponses DeleteLoaiKhoaHoc(
         DeleteLoaiKhoaHocDto deleteLoaiKhoaHocDto
     );
 }

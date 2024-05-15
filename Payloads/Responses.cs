@@ -1,8 +1,9 @@
 using System.Text.Json.Serialization;
+using Interfaces.IPayloads;
 
 namespace Payloads;
 
-public class Responses
+public class Responses : IResponses
 {
     public int status { get; set; }
     public string? messages { get; set; }
@@ -10,7 +11,7 @@ public class Responses
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public object? data { get; set; }
 
-    public Responses StatusMessages(int status, string messages)
+    public IResponses StatusMessages(int status, string messages)
     {
         this.status = status;
         this.messages = messages;
@@ -18,7 +19,7 @@ public class Responses
         return this;
     }
 
-    public Responses StatusMessagesData(
+    public IResponses StatusMessagesData(
         int status,
         string messages,
         object data

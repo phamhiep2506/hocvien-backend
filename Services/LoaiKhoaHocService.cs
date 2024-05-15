@@ -2,8 +2,8 @@ using AutoMapper;
 using Dtos.LoaiKhoaHoc;
 using Microsoft.EntityFrameworkCore;
 using Models;
-using Payloads;
-using Services.IServices;
+using Interfaces.IServices;
+using Interfaces.IPayloads;
 
 namespace Services;
 
@@ -11,14 +11,20 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
 {
     private readonly IMapper _mapper;
     private readonly ApplicationDbContext _context;
+    private readonly IResponses _responses;
 
-    public LoaiKhoaHocService(IMapper mapper, ApplicationDbContext context)
+    public LoaiKhoaHocService(
+        IMapper mapper,
+        ApplicationDbContext context,
+        IResponses responses
+    )
     {
         _mapper = mapper;
         _context = context;
+        _responses = responses;
     }
 
-    public Responses CreateLoaiKhoaHoc(
+    public IResponses CreateLoaiKhoaHoc(
         CreateLoaiKhoaHocDto createLoaiKhoaHocDto
     )
     {
@@ -28,7 +34,7 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
             )
         )
         {
-            return new Responses().StatusMessages(
+            return _responses.StatusMessages(
                 202,
                 "Loại khóa học đã tồn tại"
             );
@@ -42,13 +48,13 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
         _context.Add(loaiKhoaHoc);
         _context.SaveChanges();
 
-        return new Responses().StatusMessages(
+        return _responses.StatusMessages(
             201,
             "Loại khóa học được thêm thành công"
         );
     }
 
-    public Responses UpdateLoaiKhoaHoc(
+    public IResponses UpdateLoaiKhoaHoc(
         UpdateLoaiKhoaHocDto updateLoaiKhoaHocDto
     )
     {
@@ -59,7 +65,7 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
 
         if (loaiKhoaHoc == null)
         {
-            return new Responses().StatusMessages(
+            return _responses.StatusMessages(
                 202,
                 "Loại khóa học không tồn tại"
             );
@@ -72,13 +78,13 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
         _context.Update(loaiKhoaHoc);
         _context.SaveChanges();
 
-        return new Responses().StatusMessages(
+        return _responses.StatusMessages(
             200,
             "Sửa loại khóa học thành công"
         );
     }
 
-    public Responses DeleteLoaiKhoaHoc(
+    public IResponses DeleteLoaiKhoaHoc(
         DeleteLoaiKhoaHocDto deleteLoaiKhoaHocDto
     )
     {
@@ -89,7 +95,7 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
 
         if (loaiKhoaHoc == null)
         {
-            return new Responses().StatusMessages(
+            return _responses.StatusMessages(
                 202,
                 "Loại khóa học không tồn tại"
             );
@@ -98,7 +104,7 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
         _context.Remove(loaiKhoaHoc);
         _context.SaveChanges();
 
-        return new Responses().StatusMessages(
+        return _responses.StatusMessages(
             200,
             "Xóa loại khóa học thành công"
         );

@@ -1,9 +1,8 @@
 using AutoMapper;
 using Dtos.LoaiKhoaHoc;
+using Interfaces.IServices;
 using Microsoft.AspNetCore.Mvc;
 using Models;
-using Payloads;
-using Services;
 
 namespace Controllers;
 
@@ -14,16 +13,19 @@ public class LoaiKhoaHocController : ControllerBase
     private readonly IMapper _mapper;
     private readonly ILogger<LoaiKhoaHocController> _logger;
     private readonly ApplicationDbContext _context;
+    private readonly ILoaiKhoaHocService _service;
 
     public LoaiKhoaHocController(
         IMapper mapper,
         ILogger<LoaiKhoaHocController> logger,
-        ApplicationDbContext context
+        ApplicationDbContext context,
+        ILoaiKhoaHocService service
     )
     {
         _mapper = mapper;
         _logger = logger;
         _context = context;
+        _service = service;
     }
 
     [HttpPost]
@@ -37,7 +39,7 @@ public class LoaiKhoaHocController : ControllerBase
         }
 
         return Ok(
-            new LoaiKhoaHocService(_mapper, _context).CreateLoaiKhoaHoc(
+            _service.CreateLoaiKhoaHoc(
                 createLoaiKhoaHocDto
             )
         );
@@ -54,7 +56,7 @@ public class LoaiKhoaHocController : ControllerBase
         }
 
         return Ok(
-            new LoaiKhoaHocService(_mapper, _context).UpdateLoaiKhoaHoc(
+            _service.UpdateLoaiKhoaHoc(
                 updateLoaiKhoaHocDto
             )
         );
@@ -71,9 +73,7 @@ public class LoaiKhoaHocController : ControllerBase
         }
 
         return Ok(
-            new LoaiKhoaHocService(_mapper, _context).DeleteLoaiKhoaHoc(
-                deleteLoaiKhoaHocDto
-            )
+            _service.DeleteLoaiKhoaHoc(deleteLoaiKhoaHocDto)
         );
     }
 }
