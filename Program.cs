@@ -19,6 +19,7 @@ builder.Services.AddControllers();
 builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddScoped<ILoaiKhoaHocService, LoaiKhoaHocService>();
+builder.Services.AddScoped<IKhoaHocService, KhoaHocService>();
 builder.Services.AddScoped<IResponses, Responses>();
 
 var app = builder.Build();

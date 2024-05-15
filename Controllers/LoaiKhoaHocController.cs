@@ -38,11 +38,7 @@ public class LoaiKhoaHocController : ControllerBase
             return BadRequest();
         }
 
-        return Ok(
-            _service.CreateLoaiKhoaHoc(
-                createLoaiKhoaHocDto
-            )
-        );
+        return Ok(_service.CreateLoaiKhoaHoc(createLoaiKhoaHocDto));
     }
 
     [HttpPatch]
@@ -55,11 +51,7 @@ public class LoaiKhoaHocController : ControllerBase
             return BadRequest();
         }
 
-        return Ok(
-            _service.UpdateLoaiKhoaHoc(
-                updateLoaiKhoaHocDto
-            )
-        );
+        return Ok(_service.UpdateLoaiKhoaHoc(updateLoaiKhoaHocDto));
     }
 
     [HttpDelete]
@@ -72,8 +64,6 @@ public class LoaiKhoaHocController : ControllerBase
             return BadRequest();
         }
 
-        return Ok(
-            _service.DeleteLoaiKhoaHoc(deleteLoaiKhoaHocDto)
-        );
+        return Ok(_service.DeleteLoaiKhoaHoc(deleteLoaiKhoaHocDto));
     }
 }

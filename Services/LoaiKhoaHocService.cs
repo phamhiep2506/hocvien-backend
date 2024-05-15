@@ -1,9 +1,9 @@
 using AutoMapper;
 using Dtos.LoaiKhoaHoc;
+using Interfaces.IPayloads;
+using Interfaces.IServices;
 using Microsoft.EntityFrameworkCore;
 using Models;
-using Interfaces.IServices;
-using Interfaces.IPayloads;
 
 namespace Services;
 
@@ -35,7 +35,7 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
         )
         {
             return _responses.StatusMessages(
-                202,
+                StatusCodes.Status202Accepted,
                 "Loại khóa học đã tồn tại"
             );
         }
@@ -49,7 +49,7 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
         _context.SaveChanges();
 
         return _responses.StatusMessages(
-            201,
+            StatusCodes.Status201Created,
             "Loại khóa học được thêm thành công"
         );
     }
@@ -66,7 +66,7 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
         if (loaiKhoaHoc == null)
         {
             return _responses.StatusMessages(
-                202,
+                StatusCodes.Status202Accepted,
                 "Loại khóa học không tồn tại"
             );
         }
@@ -79,7 +79,7 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
         _context.SaveChanges();
 
         return _responses.StatusMessages(
-            200,
+            StatusCodes.Status200OK,
             "Sửa loại khóa học thành công"
         );
     }
@@ -96,7 +96,7 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
         if (loaiKhoaHoc == null)
         {
             return _responses.StatusMessages(
-                202,
+                StatusCodes.Status202Accepted,
                 "Loại khóa học không tồn tại"
             );
         }
@@ -105,7 +105,7 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
         _context.SaveChanges();
 
         return _responses.StatusMessages(
-            200,
+            StatusCodes.Status200OK,
             "Xóa loại khóa học thành công"
         );
     }
