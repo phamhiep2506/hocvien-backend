@@ -4,6 +4,7 @@ using Interfaces.IPayloads;
 using Interfaces.IServices;
 using Microsoft.EntityFrameworkCore;
 using Models;
+using Payloads;
 
 namespace Services;
 
@@ -36,7 +37,7 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
         {
             return _responses.StatusMessages(
                 StatusCodes.Status202Accepted,
-                "Loại khóa học đã tồn tại"
+                ResponsesMessages.DataExisted
             );
         }
 
@@ -50,7 +51,7 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
 
         return _responses.StatusMessages(
             StatusCodes.Status201Created,
-            "Loại khóa học được thêm thành công"
+            ResponsesMessages.CreateDataSuccess
         );
     }
 
@@ -67,7 +68,7 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
         {
             return _responses.StatusMessages(
                 StatusCodes.Status202Accepted,
-                "Loại khóa học không tồn tại"
+                ResponsesMessages.DataNotExist
             );
         }
 
@@ -80,7 +81,7 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
 
         return _responses.StatusMessages(
             StatusCodes.Status200OK,
-            "Sửa loại khóa học thành công"
+            ResponsesMessages.UpdateDataSuccess
         );
     }
 
@@ -97,7 +98,7 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
         {
             return _responses.StatusMessages(
                 StatusCodes.Status202Accepted,
-                "Loại khóa học không tồn tại"
+                ResponsesMessages.DataNotExist
             );
         }
 
@@ -106,7 +107,31 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
 
         return _responses.StatusMessages(
             StatusCodes.Status200OK,
-            "Xóa loại khóa học thành công"
+            ResponsesMessages.DeleteDataSuccess
+        );
+    }
+
+    public IResponses GetLoaiKhoaHoc()
+    {
+        List<LoaiKhoaHoc>? loaiKhoaHocs = _context.LoaiKhoaHoc?.ToList();
+
+        if (loaiKhoaHocs == null)
+        {
+            return _responses.StatusMessages(
+                StatusCodes.Status202Accepted,
+                ResponsesMessages.DataNull
+            );
+        }
+
+        List<GetLoaiKhoaHocDto> getLoaiKhoaHocDtos = _mapper.Map<
+            List<LoaiKhoaHoc>,
+            List<GetLoaiKhoaHocDto>
+        >(loaiKhoaHocs);
+
+        return _responses.StatusMessagesData(
+            StatusCodes.Status200OK,
+            ResponsesMessages.GetDataSuccess,
+            getLoaiKhoaHocDtos
         );
     }
 }

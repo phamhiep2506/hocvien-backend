@@ -66,4 +66,10 @@ public class LoaiKhoaHocController : ControllerBase
 
         return Ok(_service.DeleteLoaiKhoaHoc(deleteLoaiKhoaHocDto));
     }
+
+    [HttpGet]
+    public IActionResult GetLoaiKhoaHoc()
+    {
+        return Ok(_service.GetLoaiKhoaHoc());
+    }
 }

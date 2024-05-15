@@ -16,4 +16,6 @@ public interface ILoaiKhoaHocService
     public IResponses DeleteLoaiKhoaHoc(
         DeleteLoaiKhoaHocDto deleteLoaiKhoaHocDto
     );
+
+    public IResponses GetLoaiKhoaHoc();
 }

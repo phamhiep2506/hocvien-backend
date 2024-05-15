@@ -3,6 +3,7 @@ using Dtos;
 using Interfaces.IPayloads;
 using Interfaces.IServices;
 using Models;
+using Payloads;
 
 namespace Services;
 
@@ -33,7 +34,7 @@ public class KhoaHocService : IKhoaHocService
         {
             return _responses.StatusMessages(
                 StatusCodes.Status202Accepted,
-                "Khóa học đã tồn tại"
+                ResponsesMessages.DataExisted
             );
         }
 
@@ -44,10 +45,9 @@ public class KhoaHocService : IKhoaHocService
         _context.Add(khoaHoc);
         _context.SaveChanges();
 
-
         return _responses.StatusMessages(
             StatusCodes.Status201Created,
-            "Khóa học được thêm thành công"
+            ResponsesMessages.CreateDataSuccess
         );
     }
 }

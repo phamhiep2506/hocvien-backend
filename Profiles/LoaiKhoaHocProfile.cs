@@ -10,5 +10,6 @@ public class LoaiKhoaHocProfile : Profile
     {
         CreateMap<CreateLoaiKhoaHocDto, LoaiKhoaHoc>();
         CreateMap<UpdateLoaiKhoaHocDto, LoaiKhoaHoc>();
+        CreateMap<LoaiKhoaHoc, GetLoaiKhoaHocDto>();
     }
 }
