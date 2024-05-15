@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using Dtos.KhoaHoc;
+using Fakers;
 using Interfaces.IServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +24,12 @@ public class KhoaHocController : ControllerBase
         {
             return BadRequest();
         }
+
+        /*
+            Generate data
+        */
+        // var faker = new KhoaHocFaker().Generate();
+        // return Ok(_service.CreateKhoaHoc(faker));
 
         return Ok(_service.CreateKhoaHoc(createKhoaHocDto));
     }
@@ -50,9 +57,12 @@ public class KhoaHocController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetKhoaHoc()
+    public IActionResult GetKhoaHoc(
+        [Range(1, int.MaxValue)] int page,
+        [Range(1, int.MaxValue)]int pageSize
+    )
     {
-        return Ok(_service.GetKhoaHoc());
+        return Ok(_service.GetKhoaHoc(page, pageSize));
     }
 
     [HttpGet]

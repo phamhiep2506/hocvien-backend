@@ -129,11 +129,16 @@ public class KhoaHocService : IKhoaHocService
         );
     }
 
-    public IResponses GetKhoaHoc()
+    public IResponses GetKhoaHoc(int page, int pageSize)
     {
-        List<KhoaHoc> khoaHoc = _context.KhoaHoc!.ToList();
+        List<KhoaHoc> khoaHocs = _context
+            .KhoaHoc!
+            .OrderBy(x => x.KhoaHocId)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
 
-        if (khoaHoc.Count == 0)
+        if (khoaHocs.Count == 0)
         {
             return _responses.StatusMessages(
                 ResponsesStatus.Error,
@@ -144,7 +149,7 @@ public class KhoaHocService : IKhoaHocService
         List<GetKhoaHocDto> getKhoaHocDtos = _mapper.Map<
             List<KhoaHoc>,
             List<GetKhoaHocDto>
-        >(khoaHoc);
+        >(khoaHocs);
 
         return _responses.StatusMessagesData(
             ResponsesStatus.Success,
