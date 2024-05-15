@@ -20,15 +20,15 @@ public class BaiViet
     [MaxLength(1000)]
     public string? NoiDungNgan { get; set; }
 
-    public DateTime ThoiGianTao { get; set; }
+    public DateTime? ThoiGianTao { get; set; }
 
     [Column(TypeName = "nvarchar(MAX)")]
     [MaxLength]
     public string? HinhAnh { get; set; }
 
-    public int ChuDeId { get; set; }
+    public int? ChuDeId { get; set; }
 
-    public int TaiKhoanId { get; set; }
+    public int? TaiKhoanId { get; set; }
 
     public TaiKhoan? TaiKhoan { get; set; }
 

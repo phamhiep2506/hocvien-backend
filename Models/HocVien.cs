@@ -15,7 +15,7 @@ public class HocVien
     [MaxLength(50)]
     public string? HoTen { get; set; }
 
-    public DateTime NgaySinh { get; set; }
+    public DateTime? NgaySinh { get; set; }
 
     [MaxLength(11)]
     public string? SoDienThoai { get; set; }

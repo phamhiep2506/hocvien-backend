@@ -46,8 +46,18 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
             LoaiKhoaHoc
         >(createLoaiKhoaHocDto);
 
-        _context.Add(loaiKhoaHoc);
-        _context.SaveChanges();
+        try
+        {
+            _context.Add(loaiKhoaHoc);
+            _context.SaveChanges();
+        }
+        catch
+        {
+            return _responses.StatusMessages(
+                StatusCodes.Status202Accepted,
+                ResponsesMessages.CreateDataFailed
+            );
+        }
 
         return _responses.StatusMessages(
             StatusCodes.Status201Created,
@@ -72,12 +82,23 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
             );
         }
 
-        loaiKhoaHoc = _mapper.Map<UpdateLoaiKhoaHocDto, LoaiKhoaHoc>(
-            updateLoaiKhoaHocDto
+        _mapper.Map<UpdateLoaiKhoaHocDto, LoaiKhoaHoc>(
+            updateLoaiKhoaHocDto,
+            loaiKhoaHoc
         );
 
-        _context.Update(loaiKhoaHoc);
-        _context.SaveChanges();
+        try
+        {
+            _context.Update(loaiKhoaHoc);
+            _context.SaveChanges();
+        }
+        catch
+        {
+            return _responses.StatusMessages(
+                StatusCodes.Status202Accepted,
+                ResponsesMessages.UpdateDataFailed
+            );
+        }
 
         return _responses.StatusMessages(
             StatusCodes.Status200OK,
@@ -102,8 +123,18 @@ public class LoaiKhoaHocService : ILoaiKhoaHocService
             );
         }
 
-        _context.Remove(loaiKhoaHoc);
-        _context.SaveChanges();
+        try
+        {
+            _context.Remove(loaiKhoaHoc);
+            _context.SaveChanges();
+        }
+        catch
+        {
+            return _responses.StatusMessages(
+                StatusCodes.Status202Accepted,
+                ResponsesMessages.DeleteDataFailed
+            );
+        }
 
         return _responses.StatusMessages(
             StatusCodes.Status200OK,

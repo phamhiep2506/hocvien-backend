@@ -1,24 +1,19 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Models;
+namespace Dtos;
 
-public class KhoaHoc
+public class UpdateKhoaHocDto
 {
-    [Key]
+    [Required]
     public int KhoaHocId { get; set; }
 
-    [MaxLength(50)]
+    [MaxLength(50, ErrorMessage = "Tên khóa học không được quá 50 ký tự")]
     public string? TenKhoaHoc { get; set; }
 
     public int? ThoiGianHoc { get; set; }
 
-    [Column(TypeName = "nvarchar(MAX)")]
-    [MaxLength]
     public string? GioiThieu { get; set; }
 
-    [Column(TypeName = "nvarchar(MAX)")]
-    [MaxLength]
     public string? NoiDung { get; set; }
 
     public float? HocPhi { get; set; }
@@ -27,13 +22,7 @@ public class KhoaHoc
 
     public int? SoLuongMon { get; set; }
 
-    [Column(TypeName = "nvarchar(MAX)")]
-    [MaxLength]
     public string? HinhAnh { get; set; }
 
     public int? LoaiKhoaHocId { get; set; }
-
-    public LoaiKhoaHoc? LoaiKhoaHoc { get; set; }
-
-    public ICollection<DangKyHoc>? DangKyHocs { get; set; }
 }

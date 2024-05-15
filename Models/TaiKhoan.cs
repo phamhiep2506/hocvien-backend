@@ -16,7 +16,7 @@ public class TaiKhoan
     [MaxLength(50)]
     public string? MatKhau { get; set; }
 
-    public int QuyenHanId { get; set; }
+    public int? QuyenHanId { get; set; }
 
     public QuyenHan? QuyenHan { get; set; }
 

@@ -6,4 +6,5 @@ namespace Interfaces.IServices;
 public interface IKhoaHocService
 {
     public IResponses CreateKhoaHoc(CreateKhoaHocDto createKhoaHocDto);
+    public IResponses UpdateKhoaHoc(UpdateKhoaHocDto updateKhoaHocDto);
 }

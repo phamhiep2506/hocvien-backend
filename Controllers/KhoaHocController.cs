@@ -38,4 +38,15 @@ public class KhoaHocController : ControllerBase
 
         return Ok(_service.CreateKhoaHoc(createKhoaHocDto));
     }
+
+    [HttpPatch]
+    public IActionResult UpdateKhoaHoc(UpdateKhoaHocDto updateKhoaHocDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
+
+        return Ok(_service.UpdateKhoaHoc(updateKhoaHocDto));
+    }
 }
