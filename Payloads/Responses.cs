@@ -5,16 +5,16 @@ namespace Payloads;
 
 public class Responses : IResponses
 {
-    public int status { get; set; }
-    public string? messages { get; set; }
+    public int Status { get; set; }
+    public string? Messages { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public object? data { get; set; }
+    public object? Data { get; set; }
 
     public IResponses StatusMessages(int status, string messages)
     {
-        this.status = status;
-        this.messages = messages;
+        Status = status;
+        Messages = messages;
 
         return this;
     }
@@ -25,9 +25,9 @@ public class Responses : IResponses
         object data
     )
     {
-        this.status = status;
-        this.messages = messages;
-        this.data = data;
+        Status = status;
+        Messages = messages;
+        Data = data;
 
         return this;
     }

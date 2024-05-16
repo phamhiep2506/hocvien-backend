@@ -58,8 +58,8 @@ public class KhoaHocController : ControllerBase
 
     [HttpGet]
     public IActionResult GetKhoaHoc(
-        [Range(1, int.MaxValue)] int page,
-        [Range(1, int.MaxValue)]int pageSize
+        [Range(1, int.MaxValue)] [Required] int page,
+        [Range(1, int.MaxValue)] [Required] int pageSize
     )
     {
         return Ok(_service.GetKhoaHoc(page, pageSize));
@@ -69,7 +69,10 @@ public class KhoaHocController : ControllerBase
     [Route("search")]
     public IActionResult SearchKhoaHocByName(
         [MaxLength(50, ErrorMessage = "Tên khóa học không được quá 50 ký tự")]
-            string tenKhoaHoc
+        [Required]
+            string tenKhoaHoc,
+        [Range(1, int.MaxValue)] [Required] int page,
+        [Range(1, int.MaxValue)] [Required] int pageSize
     )
     {
         if (!ModelState.IsValid)
@@ -77,6 +80,6 @@ public class KhoaHocController : ControllerBase
             return BadRequest();
         }
 
-        return Ok(_service.SearchKhoaHocByName(tenKhoaHoc));
+        return Ok(_service.SearchKhoaHocByName(tenKhoaHoc, page, pageSize));
     }
 }

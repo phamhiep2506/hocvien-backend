@@ -1,5 +1,6 @@
 using AutoMapper;
 using Dtos.KhoaHoc;
+using Helpers;
 using Interfaces.IPayloads;
 using Interfaces.IServices;
 using Models;
@@ -132,10 +133,7 @@ public class KhoaHocService : IKhoaHocService
     public IResponses GetKhoaHoc(int page, int pageSize)
     {
         List<KhoaHoc> khoaHocs = _context
-            .KhoaHoc!
-            .OrderBy(x => x.KhoaHocId)
-            .Skip((page - 1) * pageSize)
-            .Take(pageSize)
+            .KhoaHoc!.OrderBy(x => x.KhoaHocId)
             .ToList();
 
         if (khoaHocs.Count == 0)
@@ -146,10 +144,16 @@ public class KhoaHocService : IKhoaHocService
             );
         }
 
+        List<KhoaHoc> khoaHocPaginations = PaginationHelper<KhoaHoc>.Pagination(
+            khoaHocs,
+            page,
+            pageSize
+        );
+
         List<GetKhoaHocDto> getKhoaHocDtos = _mapper.Map<
             List<KhoaHoc>,
             List<GetKhoaHocDto>
-        >(khoaHocs);
+        >(khoaHocPaginations);
 
         return _responses.StatusMessagesData(
             ResponsesStatus.Success,
@@ -158,13 +162,18 @@ public class KhoaHocService : IKhoaHocService
         );
     }
 
-    public IResponses SearchKhoaHocByName(string tenKhoaHoc)
+    public IResponses SearchKhoaHocByName(
+        string tenKhoaHoc,
+        int page,
+        int pageSize
+    )
     {
-        List<KhoaHoc> khoaHoc = _context
-            .KhoaHoc!.Where(x => x.TenKhoaHoc == tenKhoaHoc)
+        List<KhoaHoc> khoaHocs = _context
+            .KhoaHoc!.OrderBy(x => x.KhoaHocId)
+            .Where(x => x.TenKhoaHoc!.Contains(tenKhoaHoc))
             .ToList();
 
-        if (khoaHoc.Count == 0)
+        if (khoaHocs.Count == 0)
         {
             return _responses.StatusMessages(
                 ResponsesStatus.Error,
@@ -172,10 +181,16 @@ public class KhoaHocService : IKhoaHocService
             );
         }
 
+        List<KhoaHoc> khoaHocPaginations = PaginationHelper<KhoaHoc>.Pagination(
+            khoaHocs,
+            page,
+            pageSize
+        );
+
         List<GetKhoaHocDto> getKhoaHocDtos = _mapper.Map<
             List<KhoaHoc>,
             List<GetKhoaHocDto>
-        >(khoaHoc);
+        >(khoaHocPaginations);
 
         return _responses.StatusMessagesData(
             ResponsesStatus.Success,

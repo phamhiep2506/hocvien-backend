@@ -12,5 +12,5 @@ public interface IKhoaHocService
 
     public IResponses GetKhoaHoc(int page, int pageSize);
 
-    public IResponses SearchKhoaHocByName(string name);
+    public IResponses SearchKhoaHocByName(string name, int page, int pageSize);
 }
