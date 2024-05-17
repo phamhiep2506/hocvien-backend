@@ -26,8 +26,8 @@ public class CreateKhoaHocDto
     [Required]
     public int SoLuongMon { get; set; }
 
-    [Required]
-    public string? HinhAnh { get; set; }
+    // [Required]
+    // public string? HinhAnh { get; set; }
 
     [Required]
     public int LoaiKhoaHocId { get; set; }
