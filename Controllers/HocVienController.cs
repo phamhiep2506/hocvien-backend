@@ -25,4 +25,15 @@ public class HocVienController : ControllerBase
 
         return Ok(_service.CreateHocVien(createHocVienDto));
     }
+
+    [HttpPatch]
+    public IActionResult UpdateHocVien(UpdateHocVienDto updateHocVienDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
+
+        return Ok(_service.UpdateHocVien(updateHocVienDto));
+    }
 }

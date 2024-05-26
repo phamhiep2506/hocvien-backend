@@ -61,4 +61,39 @@ public class HocVienService : IHocVienService
             ResponsesMessages.CreateDataSuccess
         );
     }
+
+    public IResponses UpdateHocVien(UpdateHocVienDto updateHocVienDto)
+    {
+        HocVien? hocVien = _context
+            .HocVien?.Where(x => x.HocVienId == updateHocVienDto.HocVienId)
+            .SingleOrDefault();
+
+        if (hocVien == null)
+        {
+            return _responses.StatusMessages(
+                ResponsesStatus.Error,
+                ResponsesMessages.DataNotExist
+            );
+        }
+
+        _mapper.Map(updateHocVienDto, hocVien);
+
+        try
+        {
+            _context.Update(hocVien);
+            _context.SaveChanges();
+        }
+        catch
+        {
+            return _responses.StatusMessages(
+                ResponsesStatus.Error,
+                ResponsesMessages.UpdateDataFailed
+            );
+        }
+
+        return _responses.StatusMessages(
+            ResponsesStatus.Success,
+            ResponsesMessages.CreateDataSuccess
+        );
+    }
 }

@@ -9,5 +9,10 @@ public class HocVienProfile : Profile
     public HocVienProfile()
     {
         CreateMap<CreateHocVienDto, HocVien>();
+        CreateMap<UpdateHocVienDto, HocVien>()
+            .ForAllMembers(opts =>
+                opts.Condition((src, dest, srcMember) => srcMember != null)
+            );
+        ;
     }
 }

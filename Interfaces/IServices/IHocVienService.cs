@@ -6,4 +6,6 @@ namespace Interfaces.IServices;
 public interface IHocVienService
 {
     public IResponses CreateHocVien(CreateHocVienDto createHocVienDto);
+
+    public IResponses UpdateHocVien(UpdateHocVienDto updateHocVienDto);
 }
