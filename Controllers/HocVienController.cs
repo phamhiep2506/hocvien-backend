@@ -36,4 +36,26 @@ public class HocVienController : ControllerBase
 
         return Ok(_service.UpdateHocVien(updateHocVienDto));
     }
+
+    [HttpDelete]
+    public IActionResult DeleteHocVien(DeleteHocVienDto deleteHocVienDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
+
+        return Ok(_service.DeleteHocVien(deleteHocVienDto));
+    }
+
+    [HttpGet]
+    public IActionResult GetHocVien(int page, int pageSize)
+    {
+        if(!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
+
+        return Ok(_service.GetHocVien(page, page));
+    }
 }

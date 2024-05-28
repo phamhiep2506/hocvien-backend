@@ -14,5 +14,6 @@ public class HocVienProfile : Profile
                 opts.Condition((src, dest, srcMember) => srcMember != null)
             );
         ;
+        CreateMap<HocVien, GetHocVienDto>();
     }
 }

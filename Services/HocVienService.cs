@@ -1,5 +1,6 @@
 using AutoMapper;
 using Dtos.HocVien;
+using Helpers;
 using Interfaces.IPayloads;
 using Interfaces.IServices;
 using Models;
@@ -93,7 +94,72 @@ public class HocVienService : IHocVienService
 
         return _responses.StatusMessages(
             ResponsesStatus.Success,
-            ResponsesMessages.CreateDataSuccess
+            ResponsesMessages.UpdateDataSuccess
+        );
+    }
+
+    public IResponses DeleteHocVien(DeleteHocVienDto deleteHocVienDto)
+    {
+        HocVien? hocVien = _context
+            .HocVien?.Where(x => x.HocVienId == deleteHocVienDto.HocVienId)
+            .SingleOrDefault();
+
+        if (hocVien == null)
+        {
+            return _responses.StatusMessages(
+                ResponsesStatus.Error,
+                ResponsesMessages.DataNotExist
+            );
+        }
+
+        try
+        {
+            _context.Remove(hocVien);
+            _context.SaveChanges();
+        }
+        catch
+        {
+            return _responses.StatusMessages(
+                ResponsesStatus.Error,
+                ResponsesMessages.DeleteDataFailed
+            );
+        }
+
+        return _responses.StatusMessages(
+            ResponsesStatus.Success,
+            ResponsesMessages.DeleteDataSuccess
+        );
+    }
+
+    public IResponses GetHocVien(int page, int pageSize)
+    {
+        List<HocVien> hocViens = _context
+            .HocVien!.OrderBy(x => x.HocVienId)
+            .ToList();
+
+        if (hocViens.Count == 0)
+        {
+            return _responses.StatusMessages(
+                ResponsesStatus.Error,
+                ResponsesMessages.DataNull
+            );
+        }
+
+        List<HocVien> hocVienPaginations = PaginationHelper<HocVien>.Pagination(
+            hocViens,
+            page,
+            pageSize
+        );
+
+        List<GetHocVienDto> getHocVienDtos = _mapper.Map<
+            List<HocVien>,
+            List<GetHocVienDto>
+        >(hocVienPaginations);
+
+        return _responses.StatusMessagesData(
+            ResponsesStatus.Success,
+            ResponsesMessages.GetDataSuccess,
+            getHocVienDtos
         );
     }
 }
