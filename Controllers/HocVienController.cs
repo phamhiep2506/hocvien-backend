@@ -51,7 +51,7 @@ public class HocVienController : ControllerBase
     [HttpGet]
     public IActionResult GetHocVien(int page, int pageSize)
     {
-        if(!ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
             return BadRequest();
         }
