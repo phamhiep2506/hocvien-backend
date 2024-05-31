@@ -22,6 +22,7 @@ builder.Services.AddScoped<ILoaiKhoaHocService, LoaiKhoaHocService>();
 builder.Services.AddScoped<IKhoaHocService, KhoaHocService>();
 builder.Services.AddScoped<IHocVienService, HocVienService>();
 builder.Services.AddScoped<ITinhTrangHocService, TinhTrangHocService>();
+builder.Services.AddScoped<IDangKyhocService, DangKyHocService>();
 builder.Services.AddScoped<IResponses, Responses>();
 
 var app = builder.Build();
