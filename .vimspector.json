@@ -1,0 +1,16 @@
+{
+  "configurations": {
+    "launch": {
+      "adapter": "netcoredbg",
+      "configuration": {
+        "request": "launch",
+        "program": "/home/phamhiep/Projects/hocvien-backend/bin/Debug/net8.0/hocvien-backend.dll",
+        "args": [],
+        "stopAtEntry": false,
+        "env": {
+          "ASPNETCORE_ENVIRONMENT": "Development"
+        }
+      }
+    }
+  }
+}
