@@ -25,4 +25,32 @@ public class QuyenHanController : ControllerBase
 
         return Ok(_service.CreateQuyenHan(createQuyenHanDto));
     }
+
+    [HttpPatch]
+    public IActionResult UpdateQuyenHan(UpdateQuyenHanDto updateQuyenHanDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
+
+        return Ok(_service.UpdateQuyenHan(updateQuyenHanDto));
+    }
+
+    [HttpDelete]
+    public IActionResult DeleteQuyenHan(DeleteQuyenHanDto deleteQuyenHanDto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest();
+        }
+
+        return Ok(_service.DeleteQuyenHan(deleteQuyenHanDto));
+    }
+
+    [HttpGet]
+    public IActionResult GetQuyenHan(int page, int pageSize)
+    {
+        return Ok(_service.GetQuyenHan(page, pageSize));
+    }
 }
