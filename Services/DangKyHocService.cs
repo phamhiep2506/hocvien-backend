@@ -62,7 +62,7 @@ public class DangKyHocService : IDangKyhocService
             dangKyHoc.NgayBatDau!.Value.Year,
             dangKyHoc.NgayBatDau.Value.Month,
             dangKyHoc.NgayBatDau.Value.Day
-        ).AddMonths((int) khoaHoc.ThoiGianHoc!);
+        ).AddMonths((int)khoaHoc.ThoiGianHoc!);
 
         _context.Update(dangKyHoc);
         _context.SaveChanges();
@@ -76,8 +76,9 @@ public class DangKyHocService : IDangKyhocService
     public IResponses UpdateDangKyHoc(UpdateDangKyHocDto updateDangKyHocDto)
     {
         DangKyHoc? dangKyHoc = _context
-            .DangKyHoc?
-            .Where(x => x.DangKyHocId == updateDangKyHocDto.DangKyHocId)
+            .DangKyHoc?.Where(x =>
+                x.DangKyHocId == updateDangKyHocDto.DangKyHocId
+            )
             .SingleOrDefault();
 
         if (dangKyHoc == null)
@@ -94,7 +95,8 @@ public class DangKyHocService : IDangKyhocService
         {
             _context.Update(dangKyHoc);
             _context.SaveChanges();
-        } catch
+        }
+        catch
         {
             return _responses.StatusMessages(
                 ResponsesStatus.Error,
@@ -118,7 +120,7 @@ public class DangKyHocService : IDangKyhocService
             dangKyHoc.NgayBatDau!.Value.Year,
             dangKyHoc.NgayBatDau.Value.Month,
             dangKyHoc.NgayBatDau.Value.Day
-        ).AddMonths((int) khoaHoc.ThoiGianHoc!);
+        ).AddMonths((int)khoaHoc.ThoiGianHoc!);
 
         _context.Update(dangKyHoc);
         _context.SaveChanges();
@@ -131,10 +133,10 @@ public class DangKyHocService : IDangKyhocService
 
     public IResponses DeleteDangKyHoc(DeleteDangKyHocDto deleteDangKyHocDto)
     {
-
         DangKyHoc? dangKyHoc = _context
-            .DangKyHoc?
-            .Where(x => x.DangKyHocId == deleteDangKyHocDto.DangKyHocId)
+            .DangKyHoc?.Where(x =>
+                x.DangKyHocId == deleteDangKyHocDto.DangKyHocId
+            )
             .SingleOrDefault();
 
         if (dangKyHoc == null)
@@ -166,7 +168,8 @@ public class DangKyHocService : IDangKyhocService
         {
             _context.Remove(dangKyHoc);
             _context.SaveChanges();
-        } catch
+        }
+        catch
         {
             return _responses.StatusMessages(
                 ResponsesStatus.Error,
@@ -192,11 +195,8 @@ public class DangKyHocService : IDangKyhocService
             );
         }
 
-        List<DangKyHoc> dangKyHocPaginations = PaginationHelper<DangKyHoc>.Pagination(
-            dangKyHocs,
-            page,
-            pageSize
-        );
+        List<DangKyHoc> dangKyHocPaginations =
+            PaginationHelper<DangKyHoc>.Pagination(dangKyHocs, page, pageSize);
 
         List<GetDangKyHocDto> getDangKyHocDtos = _mapper.Map<
             List<DangKyHoc>,

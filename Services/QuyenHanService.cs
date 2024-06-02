@@ -111,6 +111,24 @@ public class QuyenHanService : IQuyenHanService
             );
         }
 
+        List<TaiKhoan> taiKhoans = _context
+            .TaiKhoan!.Where(x => x.QuyenHanId == quyenHan.QuyenHanId)
+            .ToList();
+
+        if (taiKhoans.Count == 0)
+        {
+            return _responses.StatusMessages(
+                ResponsesStatus.Error,
+                ResponsesMessages.DataNull
+            );
+        }
+
+        taiKhoans.ForEach(taiKhoan =>
+        {
+            _context.Remove(taiKhoan);
+            _context.SaveChanges();
+        });
+
         try
         {
             _context.Remove(quyenHan);
